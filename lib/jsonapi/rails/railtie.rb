@@ -10,6 +10,7 @@ module JSONAPI
       MEDIA_TYPE = 'application/vnd.api+json'.freeze
       PARSER = lambda do |body|
         data = JSON.parse(body)
+        data.deep_transform_keys! {|key| key.to_s.underscore }
         hash = { _jsonapi: data }
 
         hash.with_indifferent_access
